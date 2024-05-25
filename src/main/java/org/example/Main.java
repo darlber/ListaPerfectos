@@ -6,77 +6,49 @@ package org.example;
  */
 
 
-import java.util.InputMismatchException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
  * @author Alberto
  */
 public class Main {
+
     public static void main(String[] args) {
-        boolean salir = false;
-        int opcion = 0;
         Scanner sn = new Scanner(System.in);
-        int numInt = 5;
-        int numMax = 10;
 
 
-        while (!salir) {
+        getN(sn.nextInt());
 
-            System.out.println("1");
-            System.out.println("2");
-            System.out.println("3");
-            opcion = sn.nextInt();
+    }
 
-            try {
-                switch (opcion) {
-                    case 1:
-                        System.out.println("\n1\n");
-                        numInt = sn.nextInt();
-                        numMax = sn.nextInt();
-                        System.out.println("" + numInt + numMax);
-                        break;
-                    case 2:
-                        System.out.println("\n2\n");
-                        int numOculto = (int) Math.floor(Math.random() * numMax + 1);
-                        int user = 0;
-                        int intento = 0;
-                        boolean acierto = false;
 
-                        System.out.println("tienes " + numInt + "s " + numMax + "ss" + numOculto);
-                        while (intento < numInt && !acierto) {
-                            user = sn.nextInt();
+    public static boolean esPerfecto(int n) {
+        int suma = 0;
 
-                            if (user == numOculto) {
-                                System.out.println("vaya polla");
-                                acierto = true;
-                            } else {
-                                if (user > numOculto) {
-                                    System.out.println("te passte");
-                                    intento++;
-                                    System.out.println("te quedan" + (numInt-intento) + "intentos");
+        for (int i = 1; i < n - 1; i++) {
+            if (n % i == 0) {
+                suma = suma + i;
+                if (suma == n) {
+                    return true;
 
-                                } else {
-                                    System.out.println("te coraste");
-                                    intento++;
-                                    System.out.println("te quedan" + (numInt-intento) + "intentos");
-
-                                }
-                            }
-
-                        }
-
-                        break;
-                    case 3:
-                        salir = true;
-                        break;
-                    default:
-                        throw new AssertionError();
                 }
-            } catch (Exception e) {
-                throw new InputMismatchException();
             }
         }
+        return false;
     }
+
+    public static ArrayList<Integer> getN(int N) {
+        ArrayList<Integer> siesPerfecto = new ArrayList<>();
+
+        for (int i = 1; i <= N; i++) {
+            if (esPerfecto(i)) {
+                siesPerfecto.add(i);
+            }
+        }
+        System.out.println("Esta es la lista compa = " + siesPerfecto);
+        return siesPerfecto;
+    }
+
 }
